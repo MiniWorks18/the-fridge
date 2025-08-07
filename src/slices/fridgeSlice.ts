@@ -68,20 +68,20 @@ const fridgeSlice = createSlice({
                 if (state.contents[item] <= 0) delete state.contents[item];
             }
         },
-        moveItemUp(state, action: PayloadAction<{item: FridgeItem}>) {
-            const {item} = action.payload;
-            const currentIndex = state.contents.findIndex((shelf) => shelf.includes(item));
+        moveItemUp(state, action: PayloadAction<FridgeItem>) {
+            const item = action.payload;
+            const currentIndex = state.contents.findIndex((shelf) => shelf.some(shelfItem => shelfItem.name === item.name));
             if (currentIndex > 0) {
-                state.contents[currentIndex-1] = [...state.contents[currentIndex-1], item]
-                state.contents[currentIndex] = state.contents[currentIndex].filter((i) => i !== item)
+                state.contents[currentIndex-1].push(item);
+                state.contents[currentIndex] = state.contents[currentIndex].filter((i) => i.name !== item.name)
             }
         },
-        moveItemDown(state, action: PayloadAction<{item: FridgeItem}>) {
-            const {item} = action.payload;
-            const currentIndex = state.contents.findIndex((shelf) => shelf.includes(item));
+        moveItemDown(state, action: PayloadAction<FridgeItem>) {
+            const item = action.payload;
+            const currentIndex = state.contents.findIndex((shelf) => shelf.some(shelfItem => shelfItem.name === item.name));
             if (!!state.contents[currentIndex+1]) {
-                state.contents[currentIndex+1] = [...state.contents[currentIndex+1], item];
-                state.contents[currentIndex] = state.contents[currentIndex].filter((i) => i !== item);
+                state.contents[currentIndex+1].push(item);
+                state.contents[currentIndex] = state.contents[currentIndex].filter((i) => i.name !== item.name);
             }
         }
     }
