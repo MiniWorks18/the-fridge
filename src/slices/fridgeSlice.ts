@@ -57,15 +57,20 @@ const fridgeSlice = createSlice({
         closeDoor(state) {
             state.doorOpen = false;
         },
-        addItem(state, action: PayloadAction<{item: string; quantity: number}>) {
-            const {item, quantity} = action.payload;
-            state.contents[item] = (state.contents[item] ?? 0) + quantity;
+        addItem(state, action: PayloadAction<FridgeItem>) {
+            const item = action.payload;
+            state.contents[0].push(item);
         },
-        removeItem(state, action: PayloadAction<{item: string; quantity: number}>) {
-            const {item, quantity} = action.payload;
-            if (state.contents[item]) {
-                state.contents[item] -= quantity;
-                if (state.contents[item] <= 0) delete state.contents[item];
+        removeItem(state, action: PayloadAction<FridgeItem>) {
+            const item = action.payload;
+            const shelf = state.contents.find(shelf => shelf.some(shelfItem => shelfItem.name === item.name))
+            if (shelf) {
+                const targetItem = shelf.find(shelfItem => shelfItem.name === item.name)
+                if (!targetItem) return;
+                targetItem.quantity -= item.quantity;
+                if (targetItem.quantity < 1) {
+                    state.contents[state.contents.indexOf(shelf)] = shelf.filter((shelfItem) => shelfItem.name !== item.name)
+                }
             }
         },
         moveItemUp(state, action: PayloadAction<FridgeItem>) {

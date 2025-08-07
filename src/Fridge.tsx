@@ -38,8 +38,8 @@ export function Fridge() {
         <input value={newItemName} onChange={(change) => setNewItemName(change.target.value)}></input>
         <input value={newItemQty} type='number' onChange={(change) => setNewItemQty(Number.parseInt(change.target.value))}></input>
         <button onClick={() => submitNewItem()}>Submit</button>
-        <button onClick={() => dispatch(addItem({item: 'carrots', quantity: 1}))}>Add a Carrot</button>
-        <button onClick={() => dispatch(removeItem({item: 'carrots', quantity: 1}))}>Remove a Carrot</button>
+        <button onClick={() => dispatch(addItem({name: 'carrots', quantity: 1, shelfIndex: 0}))}>Add a Carrot</button>
+        <button onClick={() => dispatch(removeItem({name: 'carrots', quantity: 1, shelfIndex: 0}))}>Remove a Carrot</button>
         </>
     )
 }
