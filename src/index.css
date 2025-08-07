@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -65,4 +67,43 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* Horizontal shelf, items spaced evenly on the same row, centered in the middle */
+.fridge-shelf {
+  display: flex;
+  justify-content: center;
+  padding: 0.5em 0;
+}
+
+.fridge-item {
+  width: 100px;
+  height: 100px;
+  margin: 0 0.5em;
+  padding: 0.5em 0.25em;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+}
+.fridge-item:hover {
+  background-color: #444;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+/* The whole fridge, with a border radius, a light-ish background and an even lighter border */
+.the-fridge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 400px;
+  background-color: #b0b0b0;
+  border-radius: 16px;
+  border: 5px solid #e0e0e0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

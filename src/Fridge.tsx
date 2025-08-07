@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, removeItem } from "./slices/fridgeSlice";
 import type { RootState } from "./store";
+import { FridgeItem } from "./FridgeItem";
 
 export function Fridge() {
   const contents = useSelector((state: RootState) => state.fridge.contents)
@@ -25,13 +26,15 @@ export function Fridge() {
   
     return (
         <>
-        <ul>
-            {Object.entries(contents).map(([item, qty]) => (
-          <li key={item}>
-            {item}: {qty}
-          </li>
+        <div className='the-fridge'>
+            {contents.map((shelf) => (
+                <div className='fridge-shelf'>
+                    {shelf.map((item) => (
+                        <FridgeItem item={item}></FridgeItem>
+                    ))}
+                </div>
         ))}
-        </ul>
+        </div>
         <input value={newItemName} onChange={(change) => setNewItemName(change.target.value)}></input>
         <input value={newItemQty} type='number' onChange={(change) => setNewItemQty(Number.parseInt(change.target.value))}></input>
         <button onClick={() => submitNewItem()}>Submit</button>
