@@ -1,69 +1,68 @@
-# React + TypeScript + Vite
+# The Fridge
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React web application that simulates managing food items in a virtual fridge. Users can organize groceries across multiple shelves, move items between shelves, and manage their inventory through an interactive interface.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Virtual fridge interface with multiple shelves
+- Interactive food items with context menus
+- Move items between shelves
+- Add and remove food items
+- State management with Redux Toolkit
+- TypeScript for type safety
 
-## Expanding the ESLint configuration
+## Purpose
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Portfolio demonstration project showcasing modern React development practices, state management, and interactive UI design.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### Prerequisites
+- Node.js (v18 or higher)
+- npm
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/MiniWorks18/the-fridge.git
+cd the-fridge
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. Install dependencies:
+```bash
+npm install
 ```
+
+3. Start the development server:
+```bash
+npm run dev
+```
+
+## Built With
+
+- React 18
+- TypeScript
+- Redux Toolkit
+- Vite
+- Material-UI
+- Tailwind CSS
+
+## Usage
+
+1. View food items organized on different shelves
+2. Click on any food item to open the context menu
+3. Use "Move Up" or "Move Down" to reorganize between shelves
+4. Add new items or remove existing ones
+
+## Development
+
+### Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run lint` - Run ESLint
+
+## License
+
+This project is open source and available under the MIT License.
