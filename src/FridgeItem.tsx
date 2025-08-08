@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { moveItemDown, moveItemUp, type FridgeItem } from "./slices/fridgeSlice";
-import { Button, Menu, MenuItem } from "@mui/material";
+import { Button, Menu, MenuItem, Badge } from "@mui/material";
 import { useDispatch } from "react-redux";
 
 export function FridgeItem({item}) {
@@ -18,15 +18,17 @@ export function FridgeItem({item}) {
 
     return (
     <>
-        <button className='fridge-item flex items-center justify-center'
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup='true'
-        aria-expanded={open ? 'true' : undefined}
-         onClick={handleClick}>
-            <div>
-                {item.name}
-            </div>
-        </button>  
+        <Badge badgeContent={item.quantity} color="primary">
+            <button className='fridge-item flex items-center justify-center'
+            aria-controls={open ? 'basic-menu' : undefined}
+            aria-haspopup='true'
+            aria-expanded={open ? 'true' : undefined}
+             onClick={handleClick}>
+                <div>
+                    {item.name}
+                </div>
+            </button>
+        </Badge>
         <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
             <MenuItem onClick={() => dispatch(moveItemUp(item))}>Move Up</MenuItem>
             <MenuItem onClick={() => dispatch(moveItemDown(item))}>Move Down</MenuItem>
