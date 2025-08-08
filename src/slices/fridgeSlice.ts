@@ -1,5 +1,6 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
+import { createSlice, current, type PayloadAction } from "@reduxjs/toolkit"
 import { FridgeItem } from "../FridgeItem"
+import type { WritableDraft } from "immer"
 
 export type FridgeItem = {
     name: string,
@@ -11,6 +12,8 @@ type FridgeState = {
     contents: FridgeItem[][],
     doorOpen: boolean
 }
+
+const maxNumberOfShelves = 3;
 
 const defaultItems: FridgeItem[] = [
     {
@@ -47,6 +50,15 @@ const initialState: FridgeState = {
     doorOpen: false
 }
 
+const findItemShelf = (state: WritableDraft<FridgeState>, item: FridgeItem): FridgeItem[] | undefined => {
+    return state.contents.find(shelf => shelf.some((shelfItem) => shelfItem.name === item.name))
+}
+
+const findItem = (state: WritableDraft<FridgeState>, item: FridgeItem): FridgeItem | undefined => {
+    const shelfWithItem = findItemShelf(state, item);
+    return shelfWithItem?.find((shelfItem) => shelfItem.name === item.name);
+}
+
 const fridgeSlice = createSlice({
     name: 'fridge',
     initialState,
@@ -59,7 +71,12 @@ const fridgeSlice = createSlice({
         },
         addItem(state, action: PayloadAction<FridgeItem>) {
             const item = action.payload;
-            state.contents[0].push(item);
+            const shelfItem = findItem(state, item);
+            if (shelfItem) {
+                shelfItem.quantity += item.quantity;
+            } else {
+                state.contents[0].push(item);
+            }
         },
         removeItem(state, action: PayloadAction<FridgeItem>) {
             const item = action.payload;
@@ -84,10 +101,10 @@ const fridgeSlice = createSlice({
         moveItemDown(state, action: PayloadAction<FridgeItem>) {
             const item = action.payload;
             const currentIndex = state.contents.findIndex((shelf) => shelf.some(shelfItem => shelfItem.name === item.name));
-            if (!!state.contents[currentIndex+1]) {
-                state.contents[currentIndex+1].push(item);
-                state.contents[currentIndex] = state.contents[currentIndex].filter((i) => i.name !== item.name);
-            }
+            if (currentIndex+1 > maxNumberOfShelves) return;
+            state.contents[currentIndex+1] = state.contents[currentIndex+1] ?? []
+            state.contents[currentIndex+1].push(item);
+            state.contents[currentIndex] = state.contents[currentIndex].filter((i) => i.name !== item.name);
         }
     }
 })
